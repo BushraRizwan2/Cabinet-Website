@@ -43,3 +43,10 @@ export interface PhaseItem {
   title: string;
   description: string;
 }
+
+export interface CustomCabinetryItem {
+  id: number;
+  title: string;
+  description: string;
+  imageSrc: string;
+}

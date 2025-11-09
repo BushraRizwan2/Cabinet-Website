@@ -1,5 +1,5 @@
 import React from 'react';
-import type { NavLink, Service, GalleryImage, Testimonial, FAQItem, WhatYouGetItem, PhaseItem } from './types';
+import type { NavLink, Service, GalleryImage, Testimonial, FAQItem, WhatYouGetItem, PhaseItem, CustomCabinetryItem } from './types';
 
 const HammerIcon: React.FC<{className?: string}> = ({ className }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth={2}>
@@ -176,6 +176,27 @@ export const PHASES_DATA: PhaseItem[] = [
   },
 ];
 
+export const CUSTOM_CABINETRY_DATA: CustomCabinetryItem[] = [
+  {
+    id: 1,
+    title: 'Kitchens',
+    description: 'Make your kitchen more beautiful and organized with our custom cabinets. They are designed to look amazing and work perfectly to keep everything neat and stylish.',
+    imageSrc: 'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=800',
+  },
+  {
+    id: 2,
+    title: 'Vanities',
+    description: 'Experience luxury in your bathroom with our carefully crafted vanities. They combine style and usefulness to create your own peaceful oasis.',
+    imageSrc: 'https://images.pexels.com/photos/6621323/pexels-photo-6621323.jpeg?auto=compress&cs=tinysrgb&w=800',
+  },
+  {
+    id: 3,
+    title: 'Closets',
+    description: 'Get organized with our personalized closet systems. They maximize storage space and make it easy to access your clothes and belongings, creating a tidy and comfortable space for your wardrobe.',
+    imageSrc: 'https://images.pexels.com/photos/7018391/pexels-photo-7018391.jpeg?auto=compress&cs=tinysrgb&w=800',
+  },
+];
+
 export const GALLERY_IMAGES: GalleryImage[] = [
   { id: 1, src: 'https://picsum.photos/seed/kitchen1/800/600', alt: 'Modern kitchen cabinet installation', type: 'completed' },
   { id: 2, src: 'https://picsum.photos/seed/repairbefore/800/600', alt: 'Damaged cabinet door before repair', type: 'before' },
@@ -223,7 +244,7 @@ export const FAQ_DATA: FAQItem[] = [
     { id: 9, question: "How long does the manufacturing take?", answer: "Manufacturing times typically range from 4 to 8 weeks, depending on the complexity and materials of the project." },
     { id: 10, question: "Do you have a designer?", answer: "Our team includes experienced designers who will work with you to create a functional and beautiful cabinet layout." },
     { id: 11, question: "What is your warranty?", answer: "We offer a comprehensive warranty on both our craftsmanship and the materials used. Specific details are provided with your project proposal." },
-    { id: 12, question: "Do you have discounts?", answer: "We occasionally offer promotions and discounts. Please inquire during your consultation for any current offers." },
+    { id: 12, question: "Do you have a discount?", answer: "We occasionally offer promotions and discounts. Please inquire during your consultation for any current offers." },
     { id: 13, question: "Where is the manufacturing done?", answer: "All of our custom cabinets are manufactured locally in our state-of-the-art workshop to ensure the highest quality control." },
     { id: 14, question: "How long have you been in business?", answer: "Cabinet Masters Pro has been proudly serving clients for over 15 years, building a reputation for quality and reliability." },
 ];

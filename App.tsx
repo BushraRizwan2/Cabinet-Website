@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
+import CustomCabinetry from './components/CustomCabinetry';
 import WhatYouGet from './components/WhatYouGet';
 import Phases from './components/Phases';
 import B2B from './components/B2B';
@@ -80,25 +81,28 @@ const App: React.FC = () => {
         <section id="services" ref={sectionRefs.services} className="py-16 md:py-24 bg-white">
           <Services />
         </section>
-        <section id="what-you-get" className="py-16 md:py-24 bg-brand-light">
+        <section id="custom-cabinetry" className="py-16 md:py-24 bg-brand-light">
+          <CustomCabinetry />
+        </section>
+        <section id="what-you-get" className="py-16 md:py-24 bg-white">
           <WhatYouGet />
         </section>
-        <section id="phases" className="py-16 md:py-24 bg-white">
+        <section id="phases" className="py-16 md:py-24 bg-brand-light">
           <Phases />
         </section>
-        <section id="b2b" ref={sectionRefs.b2b} className="py-16 md:py-24 bg-brand-light">
+        <section id="b2b" ref={sectionRefs.b2b} className="py-16 md:py-24 bg-white">
           <B2B onContactClick={() => scrollToSection('contact')} />
         </section>
-        <section id="about" ref={sectionRefs.about} className="py-16 md:py-24 bg-white">
+        <section id="about" ref={sectionRefs.about} className="py-16 md:py-24 bg-brand-light">
           <About />
         </section>
-        <section id="gallery" ref={sectionRefs.gallery} className="py-16 md:py-24 bg-brand-light">
+        <section id="gallery" ref={sectionRefs.gallery} className="py-16 md:py-24 bg-white">
           <Gallery />
         </section>
-        <section id="testimonials" ref={sectionRefs.testimonials} className="py-16 md:py-24 bg-white">
+        <section id="testimonials" ref={sectionRefs.testimonials} className="py-16 md:py-24 bg-brand-light">
           <Testimonials />
         </section>
-        <section id="faq" ref={sectionRefs.faq} className="py-16 md:py-24 bg-brand-light">
+        <section id="faq" ref={sectionRefs.faq} className="py-16 md:py-24 bg-white">
           <FAQ />
         </section>
         <section id="contact" ref={sectionRefs.contact} className="py-16 md:py-24 bg-brand-dark text-white">
