@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { GALLERY_IMAGES } from '../constants';
 import type { GalleryImage } from '../types';
 import Modal from './Modal';
@@ -16,6 +16,45 @@ const ChevronRightIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
   </svg>
 );
+
+const LazyImage: React.FC<{ src: string; alt: string; className: string }> = ({ src, alt, className }) => {
+    const [isLoaded, setIsLoaded] = useState(false);
+    const imgRef = useRef<HTMLImageElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    const target = entry.target as HTMLImageElement;
+                    target.src = src;
+                    observer.unobserve(target);
+                }
+            },
+            { rootMargin: '200px' }
+        );
+
+        if (imgRef.current) {
+            observer.observe(imgRef.current);
+        }
+
+        return () => {
+            if (imgRef.current) {
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+                observer.unobserve(imgRef.current);
+            }
+        };
+    }, [src]);
+
+    return (
+        <img
+            ref={imgRef}
+            onLoad={() => setIsLoaded(true)}
+            alt={alt}
+            className={`${className} transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+        />
+    );
+};
+
 
 const Gallery: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
@@ -107,13 +146,13 @@ const Gallery: React.FC = () => {
         {displayedImages.map((image, index) => (
           <div
             key={image.id}
-            className="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer"
+            className="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer h-64 bg-gray-200"
             onClick={() => openModal(index)}
           >
-            <img
+            <LazyImage
               src={image.src}
               alt={image.alt}
-              className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-300"
+              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
               <p className="text-white text-center font-semibold">{image.alt}</p>

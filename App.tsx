@@ -91,7 +91,7 @@ const App: React.FC = () => {
           <Phases />
         </section>
         <section id="b2b" ref={sectionRefs.b2b} className="py-16 md:py-24 bg-white">
-          <B2B onContactClick={() => scrollToSection('contact')} />
+          <B2B />
         </section>
         <section id="about" ref={sectionRefs.about} className="py-16 md:py-24 bg-brand-light">
           <About />
