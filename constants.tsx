@@ -1,5 +1,5 @@
 import React from 'react';
-import type { NavLink, Service, GalleryImage, Testimonial, FAQItem, WhatYouGetItem, PhaseItem, CustomCabinetryItem } from './types';
+import type { NavLink, Service, GalleryImage, Testimonial, FAQItem, WhatYouGetItem, PhaseItem, CustomCabinetryItem, WhyChooseUsItem } from './types';
 
 const HammerIcon: React.FC<{className?: string}> = ({ className }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth={2}>
@@ -69,6 +69,24 @@ const UnlimitedRevisionsIcon: React.FC<{ className?: string }> = ({ className })
         <path d="M7 14C8.62135 12.8333 10.4913 12.0833 12.5 12C14.5087 11.9167 16.3786 12.6667 18 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
         <path d="M10 17C10.8105 16.5 11.6667 16.1667 12.5 16C13.3333 15.8333 14.1895 16 15 16.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
+);
+
+const CraftsmanshipIcon: React.FC<{className?: string}> = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.83-5.83M11.42 15.17L14.49 12.1M11.42 15.17l-1.59 1.59M14.49 12.1L9.75 7.36M14.49 12.1l1.59-1.59M9.75 7.36L3 14.11A2.652 2.652 0 003 17.25l3.59 3.59c1.956 1.956 5.122 1.956 7.078 0L19.5 15.06M9.75 7.36L12.1 9.75" />
+  </svg>
+);
+
+const TransparentIcon: React.FC<{className?: string}> = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.75A.75.75 0 013 4.5h.75m0 0H21m-18 0h9.523M5.25 7.5h13.5m-13.5 3h13.5m-13.5 3h13.5m-13.5 3h13.5M3 7.5a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm0 3a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm0 3a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm0 3a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75z" />
+  </svg>
+);
+
+const ExpertsIcon: React.FC<{className?: string}> = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-4.663M12 3.375c-3.418 0-6.162 2.524-6.162 5.625s2.744 5.625 6.162 5.625 6.162-2.524 6.162-5.625S15.418 3.375 12 3.375z" />
+  </svg>
 );
 
 export const NAV_LINKS: NavLink[] = [
@@ -173,6 +191,27 @@ export const PHASES_DATA: PhaseItem[] = [
     id: 6,
     title: 'Embrace and Enjoy',
     description: "With your dream kitchen complete, it's time to savor every moment and relish the joy it brings to your daily life.",
+  },
+];
+
+export const WHY_CHOOSE_US_DATA: WhyChooseUsItem[] = [
+  {
+    id: 1,
+    icon: <CraftsmanshipIcon className="w-10 h-10 text-brand-secondary" />,
+    title: 'Master Craftsmanship',
+    description: 'Every piece is built with precision and care by our skilled artisans, using only the finest materials for a flawless and durable finish.',
+  },
+  {
+    id: 2,
+    icon: <TransparentIcon className="w-10 h-10 text-brand-secondary" />,
+    title: 'Transparent Pricing',
+    description: 'We believe in honesty and clarity. You\'ll receive a detailed, upfront quote with no hidden fees, so you know exactly what to expect.',
+  },
+  {
+    id: 3,
+    icon: <ExpertsIcon className="w-10 h-10 text-brand-secondary" />,
+    title: 'Dedicated Expert Team',
+    description: 'Our team of certified professionals is with you every step of the way, from design to installation, ensuring your vision comes to life.',
   },
 ];
 

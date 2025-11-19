@@ -50,3 +50,10 @@ export interface CustomCabinetryItem {
   description: string;
   imageSrc: string;
 }
+
+export interface WhyChooseUsItem {
+  id: number;
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}

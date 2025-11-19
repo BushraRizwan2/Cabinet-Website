@@ -17,7 +17,7 @@ const ChevronRightIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-const LazyImage: React.FC<{ src: string; alt: string; className: string }> = ({ src, alt, className }) => {
+const LazyImage: React.FC<{ src: string; alt: string; className: string; onLoaded?: () => void }> = ({ src, alt, className, onLoaded }) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const imgRef = useRef<HTMLImageElement>(null);
 
@@ -45,10 +45,17 @@ const LazyImage: React.FC<{ src: string; alt: string; className: string }> = ({ 
         };
     }, [src]);
 
+    const handleLoad = () => {
+        setIsLoaded(true);
+        if (onLoaded) {
+            onLoaded();
+        }
+    }
+
     return (
         <img
             ref={imgRef}
-            onLoad={() => setIsLoaded(true)}
+            onLoad={handleLoad}
             alt={alt}
             className={`${className} transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
         />
@@ -59,6 +66,8 @@ const LazyImage: React.FC<{ src: string; alt: string; className: string }> = ({ 
 const Gallery: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+  const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
 
   const galleryFilters: { key: FilterKey; label: string }[] = [
     { key: 'all', label: 'All Projects' },
@@ -82,6 +91,7 @@ const Gallery: React.FC = () => {
 
   const openModal = (index: number) => {
     setCurrentIndex(index);
+    thumbnailRefs.current = thumbnailRefs.current.slice(0, displayedImages.length);
   };
 
   const closeModal = () => {
@@ -113,6 +123,17 @@ const Gallery: React.FC = () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [currentIndex, showNext, showPrev]);
+
+  useEffect(() => {
+    if (currentIndex !== null && thumbnailRefs.current[currentIndex]) {
+      thumbnailRefs.current[currentIndex]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center'
+      });
+    }
+  }, [currentIndex]);
+
 
   const selectedImage = currentIndex !== null ? displayedImages[currentIndex] : null;
 
@@ -163,33 +184,56 @@ const Gallery: React.FC = () => {
 
       <Modal isOpen={!!selectedImage} onClose={closeModal}>
         {selectedImage && (
-          <div className="relative flex items-center justify-center">
-            <button
-              onClick={(e) => { e.stopPropagation(); showPrev(); }}
-              className="absolute left-0 -translate-x-12 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/30 rounded-full hover:bg-black/50 transition-colors"
-              aria-label="Previous image"
-            >
-              <ChevronLeftIcon className="w-8 h-8 text-white" />
-            </button>
-            
-            <div className="flex flex-col items-center">
-                <img
-                    src={selectedImage.src}
-                    alt={selectedImage.alt}
-                    className="max-w-full max-h-[80vh] rounded-lg shadow-2xl object-contain"
-                />
-                <p className="text-white text-center mt-4 bg-black/50 p-2 rounded-md">
-                    {selectedImage.alt}
-                </p>
-            </div>
+          <div className="flex flex-col h-[90vh] w-full">
+            <div className="relative flex-grow flex items-center justify-center">
+                <button
+                onClick={(e) => { e.stopPropagation(); showPrev(); }}
+                className="absolute left-0 md:-translate-x-12 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/30 rounded-full hover:bg-black/50 transition-colors"
+                aria-label="Previous image"
+                >
+                <ChevronLeftIcon className="w-8 h-8 text-white" />
+                </button>
+                
+                <div className="flex flex-col items-center">
+                    <img
+                        src={selectedImage.src}
+                        alt={selectedImage.alt}
+                        className="max-w-full max-h-[65vh] rounded-lg shadow-2xl object-contain"
+                    />
+                    <div className="text-center mt-4">
+                        <p className="text-white bg-black/50 p-2 rounded-md">
+                            {selectedImage.alt}
+                        </p>
+                        <span className="text-white text-sm mt-2 block">{currentIndex! + 1} / {displayedImages.length}</span>
+                    </div>
+                </div>
 
-            <button
-              onClick={(e) => { e.stopPropagation(); showNext(); }}
-              className="absolute right-0 translate-x-12 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/30 rounded-full hover:bg-black/50 transition-colors"
-              aria-label="Next image"
-            >
-              <ChevronRightIcon className="w-8 h-8 text-white" />
-            </button>
+                <button
+                onClick={(e) => { e.stopPropagation(); showNext(); }}
+                className="absolute right-0 md:translate-x-12 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/30 rounded-full hover:bg-black/50 transition-colors"
+                aria-label="Next image"
+                >
+                <ChevronRightIcon className="w-8 h-8 text-white" />
+                </button>
+            </div>
+            
+            <div className="flex-shrink-0 w-full mt-4">
+                <div className="flex space-x-2 p-2 overflow-x-auto">
+                    {displayedImages.map((image, index) => (
+                    <button
+                        key={image.id}
+                        ref={el => (thumbnailRefs.current[index] = el)}
+                        onClick={(e) => { e.stopPropagation(); setCurrentIndex(index); }}
+                        className={`w-20 h-20 flex-shrink-0 rounded-md overflow-hidden transition-all duration-200 ${
+                        currentIndex === index ? 'ring-2 ring-brand-secondary ring-offset-2 ring-offset-black/50' : 'opacity-60 hover:opacity-100'
+                        }`}
+                        aria-label={`Go to image ${index + 1}`}
+                    >
+                        <img src={image.src} alt={`Thumbnail for ${image.alt}`} className="w-full h-full object-cover" />
+                    </button>
+                    ))}
+                </div>
+            </div>
           </div>
         )}
       </Modal>

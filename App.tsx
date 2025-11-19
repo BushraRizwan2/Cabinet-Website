@@ -7,6 +7,7 @@ import WhatYouGet from './components/WhatYouGet';
 import Phases from './components/Phases';
 import B2B from './components/B2B';
 import About from './components/About';
+import WhyChooseUs from './components/WhyChooseUs';
 import Gallery from './components/Gallery';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
@@ -96,13 +97,16 @@ const App: React.FC = () => {
         <section id="about" ref={sectionRefs.about} className="py-16 md:py-24 bg-brand-light">
           <About />
         </section>
-        <section id="gallery" ref={sectionRefs.gallery} className="py-16 md:py-24 bg-white">
+        <section id="why-choose-us" className="py-16 md:py-24 bg-white">
+          <WhyChooseUs />
+        </section>
+        <section id="gallery" ref={sectionRefs.gallery} className="py-16 md:py-24 bg-brand-light">
           <Gallery />
         </section>
-        <section id="testimonials" ref={sectionRefs.testimonials} className="py-16 md:py-24 bg-brand-light">
+        <section id="testimonials" ref={sectionRefs.testimonials} className="py-16 md:py-24 bg-white">
           <Testimonials />
         </section>
-        <section id="faq" ref={sectionRefs.faq} className="py-16 md:py-24 bg-white">
+        <section id="faq" ref={sectionRefs.faq} className="py-16 md:py-24 bg-brand-light">
           <FAQ />
         </section>
         <section id="contact" ref={sectionRefs.contact} className="py-16 md:py-24 bg-brand-dark text-white">
